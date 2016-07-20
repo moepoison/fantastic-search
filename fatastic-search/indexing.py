@@ -23,18 +23,21 @@ class IndexerFramework(object):
         self.indexer = settings.ELASTIC_SEARCH_ENDPOINT
         self.index = ''
         self.type = ''
-        self._indexing()
+
+    def factory(self):
+        pass
 
     def _indexing(self):
-        return
+        index = self._get_index()
+        return index
 
     def _get_index(self):
         return '/'.join([self.indexer, self.index, self.type])
 
 
-class ZipCodeIndexer:
+class ZipCodeIndexer(IndexerFramework):
     def __init__(self, json_data):
-        #IndexerFramework.__init__(self)
+        IndexerFramework.__init__(self)
         self.data = json_data
         self.indexer = settings.ELASTIC_SEARCH_ENDPOINT
         self.index = 'properties'
@@ -63,6 +66,15 @@ class ClientIndexer(IndexerFramework):
         self._indexing()
 
     def _indexing(self):
+        pass
+
+
+class IndexWorker:
+    def __init__(self, property_list):
+        self.start_indexing()
+        self.properties = property_list
+
+    def start_indexing(self):
         pass
 
 
